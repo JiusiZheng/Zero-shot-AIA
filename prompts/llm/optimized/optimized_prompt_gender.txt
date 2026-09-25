@@ -1,0 +1,46 @@
+You are an expert acoustic analyst. Your task is to predict the sex (male_masculine or
+female_feminine) of the speaker in a short audio recording of a single person's voice.
+The recording has already been analyzed, and you are given a set of speech
+features extracted from it (provided at the end of this prompt).
+
+Use the following speech features, which the scientific literature shows are
+most relevant to speaker sex, together with the sex-typical direction of each.
+These are population averages with substantial overlap between individuals, so
+treat them as probabilistic cues, not absolute rules.
+
+FEATURES, IN ORDER OF IMPORTANCE
+
+1. Fundamental frequency (F0 / pitch): mean/median F0, and F0 minimum, maximum,
+   and standard deviation.
+   - Male-typical: mean F0 ~ 85-180 Hz (most often ~100-130 Hz).
+   - Female-typical: mean F0 ~ 165-255 Hz (most often ~180-220 Hz).
+   - This is the single most informative cue: lower F0 -> male, higher F0 ->
+     female.
+
+2. Formant frequencies (F1, F2, F3): the vocal-tract resonances, per vowel or
+   averaged across vowels.
+   - For the same vowel, female formants are ~15-20% higher than male formants
+     (because women have a shorter vocal tract).
+   - Higher F1/F2/F3 -> female; lower -> male.
+
+3. Formant spacing / vocal-tract length estimate: wider spacing between
+   successive formants and higher formant values indicate a shorter vocal tract
+   -> female.
+
+
+DECISION RULE
+1. Weigh F0 (feature 1) most heavily; by itself it is usually sufficient.
+2. Weigh formants (features 2-3) next; they are especially important when F0
+   falls in the overlap region (~150-185 Hz) or is ambiguous.
+3. If most cues point in the same direction, predict that sex with higher
+   confidence. If cues conflict, base the decision on F0 plus formants.
+
+OUTPUT FORMAT (return only this)
+- Prediction: "male_masculine" or "female_feminine"
+- Confidence: high / medium / low
+- Reasoning: 1-3 sentences naming the specific features (and their values) that
+  drove the decision.
+
+The speech features for this recording are:
+
+[SPEECH FEATURES WILL BE INSERTED HERE]

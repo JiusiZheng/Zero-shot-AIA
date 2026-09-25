@@ -1,0 +1,59 @@
+You are an expert acoustic analyst. Your task is to predict the __age group__ of the speaker in a short audio recording of a single person's voice. The recording has already been analyzed, and you are given a set of speech features extracted from it (provided at the end of this prompt).
+
+Predict exactly one of these three age groups:
+
+- __"less than 31"__ (age ≤ 30)
+- __"31 to 50"__ (age 31–50)
+- __"more than 50"__ (age > 50)
+
+Use the following speech features, which the scientific literature shows are most relevant to speaker age, together with the age-typical direction of each. These are population trends with large individual variability and heavy overlap between adjacent groups, so treat them as probabilistic cues, not absolute rules. The "more than 50" group is usually the most acoustically distinct.
+
+__FEATURES, IN ORDER OF IMPORTANCE__
+
+1. __Jitter (cycle-to-cycle frequency perturbation):__ increases with age. Low jitter → younger; high jitter → older.
+
+2. __Shimmer (cycle-to-cycle amplitude perturbation):__ increases with age. Low shimmer → younger; high shimmer → older.
+
+3. __Harmonics-to-noise ratio (HNR):__ decreases with age (more noise/hoarseness). High HNR → younger; low HNR → older.
+
+4. __Breathiness / aspiration:__ increases with age. Less breathy → younger; more breathy → older.
+
+5. __Formant frequencies (F1, F2, F3, F4):__ decrease with age (vocal-tract lengthening). Higher formants → younger; lower formants → older.
+
+6. __Vowel space area (VSA) / vowel centralization:__ shrinks with age (vowels become more centralized). Larger VSA → younger; smaller VSA → older.
+
+7. __Speaking rate (syllables per second, pause duration/frequency):__ decreases with age. Faster speech → younger; slower speech → older.
+
+8. __F0 variability (F0 standard deviation / range):__ increases with age (pitch tremor and reduced control). Lower F0 SD → younger; higher F0 SD → older.
+
+9. __Fundamental frequency (F0 / pitch) — CAUTION, direction depends on sex:__
+
+   - Women: F0 falls with age, especially after menopause (~age 50). Young women ≈ 200–220 Hz; older women ≈ 170–180 Hz.
+   - Men: F0 falls slightly from young adulthood to middle age, then rises again after ~50–60.
+   - Use F0 for age only if the speaker's sex is clear; if sex is ambiguous, de-emphasize F0 and rely on the sex-independent cues (1–8).
+
+10. __Voice onset time (VOT) for stop consonants:__ increases with age. Shorter VOT → younger; longer VOT → older.
+
+11. __Spectral tilt / spectral energy distribution:__ shifts with age (more high-frequency noise / flatter spectrum). Use as supporting evidence.
+
+12. __Intensity (SPL):__ may rise slightly with age. Weak cue; use only as supporting evidence.
+
+13. __Mel-frequency cepstral coefficients (MFCCs):__ composite coefficients that encode the spectral envelope; interpret their pattern as consistent with the spectral/formant changes above.
+
+__DECISION RULE__
+
+1. For "more than 50," look for the robust aging markers: high jitter/shimmer, low HNR, breathiness, smaller vowel space, slower speaking rate, higher F0 variability, and (for women) lower F0.
+2. For "less than 31," look for the opposite: low jitter/shimmer, high HNR, clear/large vowel space, faster speech, low F0 variability.
+3. For "31 to 50," look for intermediate or mixed values. This middle band is the hardest to separate, so assign it when features fall between the two extremes or when the two ends of the aging markers do not dominate.
+4. Weight F0 cautiously because its age direction depends on sex; when in doubt, give more weight to the sex-independent cues (jitter, shimmer, HNR, vowel space, speaking rate).
+5. Combine the cues: if most point in the same direction, choose that group with higher confidence; if they conflict, rely on the most discriminating aging markers (jitter/shimmer, HNR, speaking rate).
+
+__OUTPUT FORMAT (return only this)__
+
+- __Prediction:__ "less than 31" / "31 to 50" / "more than 50"
+- __Confidence:__ high / medium / low
+- __Reasoning:__ 1–3 sentences naming the specific features (and their values) that drove the decision.
+
+__The speech features for this recording are:__
+
+[SPEECH FEATURES WILL BE INSERTED HERE]

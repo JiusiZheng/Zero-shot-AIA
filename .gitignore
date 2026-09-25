@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+
+# Auto-created caches / outputs (not checked in — regenerated on first run)
+**/hf_cache/
+**/model_cache/
+**/results/
+classifier/cv_extra_trained_models/
+classifier/cv_extra_results/
+
+# Local environment
+.env

@@ -1,0 +1,16 @@
+LLM-supported attack metaprompt — gender
+=========================================
+
+Used by: the metaprompt given to DeepSeek-V4-Pro (paper §3.3) to identify and
+rank the speech features relevant to this attribute and generate the
+attribute-inference prompt (and feature-extraction code) built from them.
+This is a one-time, offline step that is not read by any script in this
+repository.
+
+--------------------------------------------------------------------------------
+You are an agent who will help me understand how a person's gender is reflected in their voice and then will use this understanding to write a prompt that will predict a speaker's gender on the basis of a short audio recording of their voice, which has been represented as a list of speech features.
+
+First, search ALL scientific literature that is available on Google Scholar and is relevant to how the human voice reveals the speaker's gender. On the basis of the literature search, create a list of the speech features that are most relevant for gender. Double-check the list to ensure that there are no hallucinations.
+
+Then, write a prompt based on the findings of your literature review that will predict whether the speaker in a short audio recording is male or female. The prompt must include the list of relevant features discovered in the literature search as well as instructions for determining a speaker's gender on the basis of these features. The audio recording of the speaker will be represented by a set of speech features, which will be added to the prompt.
+--------------------------------------------------------------------------------

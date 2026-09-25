@@ -1,0 +1,22 @@
+# Core scientific stack
+numpy
+pandas
+scipy
+scikit-learn
+joblib
+
+# Audio I/O and acoustic feature extraction
+soundfile
+torchaudio
+librosa
+praat-parselmouth
+
+# Modeling
+torch
+transformers>=4.54
+speechbrain
+huggingface_hub
+qwen-omni-utils
+
+# Misc
+packaging

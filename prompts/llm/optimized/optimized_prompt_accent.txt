@@ -1,0 +1,44 @@
+You are an expert phonetician. Your task is to predict the __accent__ of an English speaker in a short audio recording of a single person's voice. The recording has already been analyzed, and you are given a set of speech features extracted from it (provided at the end of this prompt).
+
+Predict exactly one of these five accents:
+
+- __India and South Asia__
+- __England__
+- __Australian__
+- __Canadian__
+- __United States__
+
+Use the following speech features, which the scientific literature shows are most relevant to English accent, together with the accent-typical values. These are typical patterns with variation within each accent, so treat them as probabilistic cues, not absolute rules.
+
+__FEATURES AND ACCENT-TYPICAL VALUES__
+
+1. __Rhoticity (post-vocalic /r/; indexed by a low F3 in /r/ contexts):__
+
+   - Rhotic (post-vocalic /r/ present, F3 lowered): US, Canadian, and often Indian.
+   - Non-rhotic (no post-vocalic /r/; vowel lengthened/centered instead): English and Australian.
+
+2. __Voice onset time (VOT) of voiceless stops /p t k/:__
+
+   - Short-lag / unaspirated (roughly <40 ms), possibly retroflex /t d/: Indian.
+   - Long-lag / aspirated (roughly 60–100 ms): English, Australian, Canadian, US.
+
+3. __Rhythm (%V, ΔC, nPVI):__
+
+   - Syllable-timed (higher %V, lower ΔC/nPVI, less vowel reduction, full vowels in unstressed syllables): Indian.
+   - Stress-timed (lower %V, higher ΔC/nPVI): English, Australian, Canadian, US.
+
+
+__DECISION PROCEDURE__
+
+1. Check VOT and rhythm first: short VOT + syllable-timing + little vowel reduction → __India and South Asia__.
+2. Check rhoticity: non-rhotic → __England__ or __Australian__; rhotic → __United States__, __Canadian__, or __India and South Asia__.
+
+__OUTPUT FORMAT (return only this)__
+
+- __Prediction:__ "India and South Asia" / "England" / "Australian" / "Canadian" / "United States"
+- __Confidence:__ high / medium / low
+- __Reasoning:__ 1–3 sentences naming the specific features (and values) that drove the decision.
+
+__The speech features for this recording are:__
+
+[SPEECH FEATURES WILL BE INSERTED HERE]

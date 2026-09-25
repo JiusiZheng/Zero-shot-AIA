@@ -1,0 +1,79 @@
+You are an expert phonetician. Your task is to predict the __accent__ of an English speaker in a short audio recording of a single person's voice. The recording has already been analyzed, and you are given a set of speech features extracted from it (provided at the end of this prompt).
+
+Predict exactly one of these five accents:
+
+- __India and South Asia__
+- __England__
+- __Australian__
+- __Canadian__
+- __United States__
+
+Use the following speech features, which the scientific literature shows are most relevant to English accent, together with the accent-typical values. These are typical patterns with variation within each accent, so treat them as probabilistic cues, not absolute rules.
+
+__FEATURES AND ACCENT-TYPICAL VALUES__
+
+1. __Rhoticity (post-vocalic /r/; indexed by a low F3 in /r/ contexts):__
+
+   - Rhotic (post-vocalic /r/ present, F3 lowered): US, Canadian, and often Indian.
+   - Non-rhotic (no post-vocalic /r/; vowel lengthened/centered instead): English and Australian.
+
+2. __Voice onset time (VOT) of voiceless stops /p t k/:__
+
+   - Short-lag / unaspirated (roughly <40 ms), possibly retroflex /t d/: Indian.
+   - Long-lag / aspirated (roughly 60–100 ms): English, Australian, Canadian, US.
+
+3. __Rhythm (%V, ΔC, nPVI):__
+
+   - Syllable-timed (higher %V, lower ΔC/nPVI, less vowel reduction, full vowels in unstressed syllables): Indian.
+   - Stress-timed (lower %V, higher ΔC/nPVI): English, Australian, Canadian, US.
+
+4. __Vowel formant frequencies (F1, F2) / vowel-space shape:__
+
+   - Australian: the "Australian shift" — front vowels shifted (TRAP /æ/ raised, DRESS /e/ lowered), FLEECE /iː/ and GOOSE /uː/ often diphthongal, GOOSE fronted.
+   - US: TRAP /æ/ raised/tensed; LOT unrounded [ɑ]; cot–caught merger common.
+   - English (SSBE/RP): LOT rounded [ɒ]; BATH/TRAP split; cot–caught kept distinct.
+   - Indian: reduced tense/lax and length contrasts; vowels closer to Hindi values (e.g., /æ/ lowered toward [ɛ]).
+
+5. __Diphthong realization (formant movement / trajectory):__
+
+   - Canadian: "Canadian raising" — /aɪ/ and /aʊ/ have a raised nucleus ([ʌɪ], [ʌʊ]) before voiceless consonants.
+   - Australian: very open/long onglides for FACE and PRICE; distinctive trajectories.
+   - Indian: diphthongs monophthongized (e.g., /eɪ/ → [eː], /oʊ/ → [oː]); little formant movement.
+   - US: GOAT /oʊ/ backed/rounded; English: GOAT /əʊ/ has a central (schwa-like) onset.
+
+6. __Intervocalic /t/ realization:__
+
+   - Flap [ɾ]: US, Canadian, Australian.
+   - Glottal stop [ʔ] or [t]: English.
+   - Retroflex [ʈ] or unaspirated [t]: Indian.
+
+7. __F0 / intonation contour:__
+
+   - High-rising terminal ("uptalk") on statements: Australian.
+   - Distinctive pitch accent, often a higher/falling pitch range and syllable-level stress: Indian.
+   - General declarative patterns: English, Canadian, US.
+
+8. __Vowel reduction / schwa and duration:__
+
+   - Little vowel reduction (full vowels in unstressed syllables): Indian.
+   - Strong schwa reduction: English, Australian, Canadian, US.
+
+9. __Mel-frequency cepstral coefficients (MFCCs):__ composite coefficients that jointly encode the vowel/consonant/formant differences above; interpret their pattern as consistent with the relevant accent.
+
+__DECISION PROCEDURE__
+
+1. Check VOT and rhythm first: short VOT + syllable-timing + little vowel reduction + monophthongized diphthongs → __India and South Asia__.
+2. Check rhoticity: non-rhotic → __England__ or __Australian__; rhotic → __United States__, __Canadian__, or __India and South Asia__.
+3. Within non-rhotic: Australian vowel shift (raised TRAP, lowered DRESS, diphthongal FLEECE/GOOSE) and/or uptalk → __Australian__; otherwise (rounded LOT, BATH/TRAP split, glottal /t/, /əʊ/ GOAT) → __England__.
+4. Within rhotic: Canadian raising of /aɪ, aʊ/ before voiceless consonants → __Canadian__; otherwise (raised/tensed TRAP, unrounded LOT, flapped /t/) → __United States__.
+5. Weigh features 1–5 most heavily; use features 6–8 as confirmation. If cues conflict, prioritize VOT + rhythm + rhoticity + Canadian raising, in that order.
+
+__OUTPUT FORMAT (return only this)__
+
+- __Prediction:__ "India and South Asia" / "England" / "Australian" / "Canadian" / "United States"
+- __Confidence:__ high / medium / low
+- __Reasoning:__ 1–3 sentences naming the specific features (and values) that drove the decision.
+
+__The speech features for this recording are:__
+
+[SPEECH FEATURES WILL BE INSERTED HERE]

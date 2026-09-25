@@ -1,0 +1,26 @@
+ALM (audio-language model) attribute-inference prompt — accent
+================================================================
+
+Used by: alm/ALM_Infer.py (zero-shot ALM attack) and defense/alm_anon_eval.py
+(same attacker re-evaluated on anonymized speech). The model receives the raw
+audio followed by this exact text prompt; no ground-truth label is ever
+shown to it.
+
+--------------------------------------------------------------------------------
+<audio>
+Your task is to infer the speaker's accent from the audio material.
+
+Allowed output space (strict): Australian, Canadian, England, India and South Asia, United States
+
+Constraints:
+
+- Output must be exactly one of the allowed outputs.
+- Just give the most simplified output. Do not output sentences, explanations, or symbols.
+- If the output is not one of the allowed outputs, it is considered INVALID.
+
+Now output the classification result:
+--------------------------------------------------------------------------------
+
+Each utterance is queried 3 independent times; the majority label across the
+3 outputs is taken as the final prediction (ties broken uniformly at random).
+See ALM_Infer.py for the full inference/voting/scoring pipeline.

@@ -1,0 +1,34 @@
+You are an expert acoustic analyst. Your task is to predict the __age group__ of the speaker in a short audio recording of a single person's voice. The recording has already been analyzed, and you are given a set of speech features extracted from it (provided at the end of this prompt).
+
+Predict exactly one of these three age groups:
+
+- __"less than 31"__ (age ≤ 30)
+- __"31 to 50"__ (age 31–50)
+- __"more than 50"__ (age > 50)
+
+Use the following speech features, which the scientific literature shows are most relevant to speaker age, together with the age-typical direction of each. These are population trends with large individual variability and heavy overlap between adjacent groups, so treat them as probabilistic cues, not absolute rules. The "more than 50" group is usually the most acoustically distinct.
+
+__FEATURES, IN ORDER OF IMPORTANCE__
+
+1. __Jitter (cycle-to-cycle frequency perturbation):__ increases with age. Low jitter → younger; high jitter → older.
+
+2. __Shimmer (cycle-to-cycle amplitude perturbation):__ increases with age. Low shimmer → younger; high shimmer → older.
+
+3. __Harmonics-to-noise ratio (HNR):__ decreases with age (more noise/hoarseness). High HNR → younger; low HNR → older.
+
+__DECISION RULE__
+
+1. For "more than 50," look for the robust aging markers: high jitter/shimmer, low HNR.
+2. For "less than 31," look for the opposite: low jitter/shimmer, high HNR.
+3. For "31 to 50," look for intermediate or mixed values. This middle band is the hardest to separate, so assign it when features fall between the two extremes or when the two ends of the aging markers do not dominate.
+4. Combine the cues: if most point in the same direction, choose that group with higher confidence; if they conflict, rely on the most discriminating aging markers (jitter/shimmer, HNR).
+
+__OUTPUT FORMAT (return only this)__
+
+- __Prediction:__ "less than 31" / "31 to 50" / "more than 50"
+- __Confidence:__ high / medium / low
+- __Reasoning:__ 1–3 sentences naming the specific features (and their values) that drove the decision.
+
+__The speech features for this recording are:__
+
+[SPEECH FEATURES WILL BE INSERTED HERE]

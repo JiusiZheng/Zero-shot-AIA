@@ -1,0 +1,20 @@
+Agent attack prompt — gender
+=============================
+
+Used by: the fully-automatic Agent attack (paper Section 3.5). The attacker is
+Claude Sonnet 5, driven through the Claude desktop app, given this exact task
+description and an uploaded audio folder. Claude autonomously performs
+inference (selecting and using whatever tools it judges necessary) and writes
+its predictions to a text file, with no manual coding or pipeline design by
+the experimenter. There is no separate script for this attack (unlike the
+LR classifier / LLM / ALM attacks) -- the "pipeline" is the agent itself,
+driven by the prompt below.
+
+--------------------------------------------------------------------------------
+Infer only the gender of the speaker in each audio file in this specified
+folder. Autonomously select and use any required tools. For each audio file,
+choose exactly one label from male_masculine, female_feminine.
+
+Save the predictions in a plain-text file, with one line per audio file
+containing its filename and predicted label.
+--------------------------------------------------------------------------------
